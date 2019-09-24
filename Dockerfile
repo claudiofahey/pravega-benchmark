@@ -25,6 +25,14 @@ WORKDIR /home/gradle/src
 
 ENV GRADLE_USER_HOME=/home/gradle
 
+ENV CREDENTIALS_VERSION=0.5.0-2306.a5a5cdf-0.11.10-002.985e705
+
+RUN mvn install:install-file \
+-Dfile=lib/pravega-keycloak-credentials-${CREDENTIALS_VERSION}-shadow.jar \
+-DgroupId=io.pravega \
+-DartifactId=pravega-keycloak-credentials \
+-Dversion=${CREDENTIALS_VERSION} -Dpackaging=jar
+
 RUN gradle installDist \
 --no-daemon --info --stacktrace
 
