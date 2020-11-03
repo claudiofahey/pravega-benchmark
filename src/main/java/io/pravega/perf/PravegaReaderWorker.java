@@ -46,7 +46,7 @@ public class PravegaReaderWorker extends ReaderWorker {
 
         final String readerSt = Integer.toString(readerId);
         reader = factory.createReader(
-                readerSt, readergrp, new ByteArraySerializer(), ReaderConfig.builder().build());
+                readerSt, readergrp, new ByteArraySerializer(), ReaderConfig.builder().bufferSize(10*1024*1024).build());
         this.stream = stream;
 
         if (readWatermarkPeriodMillis > 0) {
