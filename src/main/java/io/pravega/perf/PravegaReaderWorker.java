@@ -45,8 +45,10 @@ public class PravegaReaderWorker extends ReaderWorker {
         super(readerId, events, secondsToRun, start, stats, readergrp, timeout, writeAndRead);
 
         final String readerSt = Integer.toString(readerId);
+        final int bufferSize = Integer.parseInt(System.getenv("PRAVEGA_BENCHMARK_READ_BUFFER_SIZE"));
+        log.info("bufferSize={}", bufferSize);
         reader = factory.createReader(
-                readerSt, readergrp, new ByteArraySerializer(), ReaderConfig.builder().bufferSize(10*1024*1024).build());
+                readerSt, readergrp, new ByteArraySerializer(), ReaderConfig.builder().bufferSize(bufferSize).build());
         this.stream = stream;
 
         if (readWatermarkPeriodMillis > 0) {
